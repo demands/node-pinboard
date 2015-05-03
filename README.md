@@ -14,42 +14,55 @@ var pinboard = require('pinboard');
 
 pinboard.config({ token: 'foo:03cb29ab1ddfe3219a' });
 
-pinboard.get('posts/all', {tag: 'banana'}, function(posts) {
-  console.log(posts); // outputs all your pinned bookmarks with the `banana` tag
+pinboard.get('posts/all', {tag: 'banana'}, function(err, posts) {
+  if (err) {
+    console.error(err);
+  } else {
+    console.log(posts); // outputs all your pinned bookmarks with the `banana` tag
+  }
 });
 ```
 
 ## methods
 `node-pinboard` support all the method that are on [Pinboard API](http://pinboard.in/api) documentation except the `user/secret` method (maybe later).
 
-`node-pinboard` have some build in alias functions for the `pinboard.get` function. so instead of writing 
+`node-pinboard` have some build in alias functions for the `pinboard.get` function. so instead of writing
 
-    pinboard.get('posts/all', function(data) {
-        console.log(data); // => xml or json output of all your bookmarks
-    });
+```javascript
+pinboard.get('posts/all', function(err, data) {
+  console.log(data); // => xml or json output of all your bookmarks
+});
+```
 
 you can write
 
-    pinboard.all(function(data) {
-        console.log(data); // => xml or json output of all your bookmarks
-    });
+```javascript
+pinboard.all(function(err, data) {
+  console.log(data); // => xml or json output of all your bookmarks
+});
+```
 
 the methods that have alias is
 
-    "posts/all" => pinboard.all([options,] callback)
-    "posts/add" => pinboard.add([options,] callback)
-    "posts/delete" => pinboard.destroy([options,] callback)
-    "tags/get" => pinboard.tags([options,] callback)
+* `posts/all` => `pinboard.all([options,] callback)`
+* `posts/add` => `pinboard.add([options,] callback)`
+* `posts/delete` => `pinboard.destroy([options,] callback)`
+* `tags/get` => `pinboard.tags([options,] callback)`
 
 # pinboard functions
-all callback function have the data argument `function(data) {...}`
+all `callback` function have `err` and `data` arguments: `function(err, data) {...}`
 
-`pinboard.config(options)` `pinboard.get(method, [options,] callback)` `pinboard.all([options,] callback)` `pinboard.add([options,] callback)` `pinboard.destroy([options,] callback)` `pinboard.tags([options,] callback)`
+* `pinboard.config(options)`
+* `pinboard.get(method, [options,] callback)`
+* `pinboard.all([options,] callback)`
+* `pinboard.add([options,] callback)`
+* `pinboard.destroy([options,] callback)`
+* `pinboard.tags([options,] callback)`
 
 # meta
-    * code: `git clone git://github.com/frozzare/node-pinboard.git`
-    * home: <http://github.com/frozzare/node-pinboard>
-    * bugs: <http://github.com/frozzare/node-pinboard/issues>
+* code: `git clone git://github.com/frozzare/node-pinboard.git`
+* home: <http://github.com/frozzare/node-pinboard>
+* bugs: <http://github.com/frozzare/node-pinboard/issues>
 
 # copyright and license
 `node-pinboard` is released under the MIT license.
