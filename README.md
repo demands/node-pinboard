@@ -1,35 +1,23 @@
 # node-pinboard
-node-pinboard is a node module for Pinboard.in API
+node-pinboard is a node module for the [Pinboard.in API](https://pinboard.in/api/).
 
 # installation
-1. install npm `curl http://npmjs.org/install.sh | sh`
-2. `npm install pinboard`
+```
+npm install pinboard
+```
 
 # usage
-a quick example using `node-pinboard`, this module require that you have a [Pinboard](http://pinboard.in) account.
+This module requires that you have an account on [Pinboard](http://pinboard.in).
 
-to use `node-pinboard` you need to do include the module in your code
+```javascript
+var pinboard = require('pinboard');
 
-    var pinboard = require('pinboard');
+pinboard.config({ token: 'foo:03cb29ab1ddfe3219a' });
 
-then you need to auth yourself so you are good to go with the API
-
-    pinboard.config({
-        username: 'username',
-        password: 'password',
-        format: 'json' // or 'xml', default is 'json'. 
-    });
-
-all Pinboard methods is paste into the `pinboard.get` function, e.g.
-
-    pinboard.get( method, [options,] callback );
-
-    pinboard.get('posts/all', function(data) {
-        console.log(data); // => xml or json output of all your bookmarks
-    });
-
-the `pinboard.get` have differnt options depending on the method you are requesting. The only option that all method have is the format option.
-when you set format option inside the `pinboard.get` function you will use that format instead of the `pinboard.config` format.
+pinboard.get('posts/all', {tag: 'banana'}, function(posts) {
+  console.log(posts); // outputs all your pinned bookmarks with the `banana` tag
+});
+```
 
 ## methods
 `node-pinboard` support all the method that are on [Pinboard API](http://pinboard.in/api) documentation except the `user/secret` method (maybe later).
@@ -63,7 +51,7 @@ all callback function have the data argument `function(data) {...}`
     * home: <http://github.com/frozzare/node-pinboard>
     * bugs: <http://github.com/frozzare/node-pinboard/issues>
 
-# copyright and license 
-`node-pinboard` is release under MIT license.
-
-Copyright 2011 [Fredrik Forsmo](http://forsmo.me)
+# copyright and license
+`node-pinboard` is released under the MIT license.
+[8ddcf91f21f5593e5b569db](https://github.com/demands/pinboard/commit/8ddcf91f21f5593e5b569db5cea8010c055eaa6e) and all prior commits are copyright 2011 [Fredrik Forsmo](http://forsmo.me).
+All commits afterwards are copyright 2015 [Max Edmands](http://maxedmands.com).
